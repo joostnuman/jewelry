@@ -7,6 +7,18 @@
 <body>
 <h1>Overview of all jewelry in the shop</h1>
 
-<span th:text="${nu}"></span>
+<table>
+    <tr>
+        <th>Naam</th>
+        <th>Beschrijving</th>
+    </tr>
+    <tr th:each="design : ${allPiecesOfJewelry}">
+        <td th:text="${design.naam}"></td>
+        <td th:text="${design.beschrijving}"></td>
+        <td><a th:href="@{/design/delete/{designId}(designId = ${design.designId})}">delete</a></td>
+    </tr>
+</table>
+
+<a th:href="@{/design/new}">Add new design</a>
 </body>
 </html>
