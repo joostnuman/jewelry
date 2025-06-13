@@ -2,6 +2,7 @@ package nl.miwnn.ch16.joost.goudsmiddemo.controller;
 
 import nl.miwnn.ch16.joost.goudsmiddemo.model.Design;
 import nl.miwnn.ch16.joost.goudsmiddemo.repositories.DesignRepository;
+import nl.miwnn.ch16.joost.goudsmiddemo.repositories.DesignerRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,16 +19,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class DesignController {
-
+    private final DesignerRepository designerRepository;
     private final DesignRepository designRepository;
 
-    public DesignController(DesignRepository designRepository) {
+    public DesignController(DesignerRepository designerRepository, DesignRepository designRepository) {
+        this.designerRepository = designerRepository;
         this.designRepository = designRepository;
     }
 
     @GetMapping({"/", "/design/overview"})
     private String showJewelryOverview(Model datamodel) {
-        datamodel.addAttribute("allPiecesOfJewelry", designRepository.findAll());
+        datamodel.addAttribute("allDesigns", designRepository.findAll());
+        datamodel.addAttribute("allDesigners", designerRepository.findAll());
 
         return "jewelryOverview";
     }
@@ -35,6 +38,7 @@ public class DesignController {
     @GetMapping("/design/new")
     private String showNewDesignForm(Model datamodel) {
         datamodel.addAttribute("formDesign", new Design());
+        datamodel.addAttribute("allDesigners", designerRepository.findAll());
 
         return "newDesignForm";
     }

@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Overview of all jewelry in the shop</title>
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Overview of all designs in the shop</title>
 </head>
 <body>
-<h1>Overview of all jewelry in the shop</h1>
 
-<table>
-    <tr>
-        <th>Naam</th>
-        <th>Beschrijving</th>
-    </tr>
-    <tr th:each="design : ${allPiecesOfJewelry}">
-        <td th:text="${design.naam}"></td>
-        <td th:text="${design.beschrijving}"></td>
-        <td><a th:href="@{/design/delete/{designId}(designId = ${design.designId})}">delete</a></td>
-    </tr>
-</table>
+<div th:replace="~{fragments/general :: navbar}"></div>
+<div class="container">
+    <h1>Overview of all designs in the shop</h1>
 
-<a th:href="@{/design/new}">Add new design</a>
+    <table>
+        <tr>
+            <th>Naam</th>
+            <th>Beschrijving</th>
+            <th>Designer</th>
+        </tr>
+        <tr th:each="design : ${allDesigns}">
+            <td th:text="${design.naam}"></td>
+            <td th:text="${design.beschrijving}"></td>
+            <td th:text="${design.designerNames}"></td>
+            <td>times bought: <span th:text="${design.numberOfCopies}"></span></td>
+            <td><a th:href="@{/design/delete/{designId}(designId = ${design.designId})}">delete</a></td>
+            <td><a th:href="@{/pieceOfJewelry/new/{designId}(designId = ${design.designId})}">buy</a></td>
+        </tr>
+    </table>
+
+    <a th:href="@{/design/new}">Add new design</a>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
 </body>
 </html>

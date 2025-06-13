@@ -1,11 +1,12 @@
 package nl.miwnn.ch16.joost.goudsmiddemo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /*
- * @Author: Joost Numan
+ * @Designer: Joost Numan
  * The concept of the design of a piece of jewelry
  */
 
@@ -17,6 +18,20 @@ public class Design {
 
     private String naam;
     private String beschrijving;
+
+    @ManyToMany
+    private Set<Designer> designers;
+
+    @OneToMany(mappedBy = "design", cascade = CascadeType.ALL)
+    private Set<PieceOfJewelry> PiecesOfJewelry;
+
+    public int getNumberOfCopies() {
+        return PiecesOfJewelry.size();
+    }
+
+    public String getDesignerNames() {
+        return designers.stream().map(Designer::getName).sorted().collect(Collectors.joining(", "));
+    }
 
     @Override
     public String toString() {
@@ -41,5 +56,21 @@ public class Design {
 
     public void setBeschrijving(String beschrijving) {
         this.beschrijving = beschrijving;
+    }
+
+    public Set<Designer> getDesigners() {
+        return designers;
+    }
+
+    public void setDesigners(Set<Designer> designers) {
+        this.designers = designers;
+    }
+
+    public Set<PieceOfJewelry> getPiecesOfJewelry() {
+        return PiecesOfJewelry;
+    }
+
+    public void setPiecesOfJewelry(Set<PieceOfJewelry> piecesOfJewelry) {
+        PiecesOfJewelry = piecesOfJewelry;
     }
 }

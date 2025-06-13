@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>New Piece of Jewelry Form</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+    <h1>New Piece of Jewelry Form</h1>
+    <form th:action="@{/pieceOfJewelry/new/}" method="post" th:object="${formPieceOfJewelry}">
+
+            <table>
+                <tr class="d-grid gap-3">
+                    <input type="hidden" th:field="*{design}" th:value="masterDesign">
+                    <td>Size</td>
+                    <td>
+                        <div class="form-check" th:each ="size : ${sizes}">
+                            <input class="form-check-input" type="radio" name="${size}" id="radioDefault1" th:field="*{finalSize}" th:value="${size}">
+                            <label class="form-check-label" for="radioDefault1" th:text ="${size}"></label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="d-grid gap-3">
+                    <td>Metal</td>
+                    <td>
+                        <div class="form-check" th:each ="metal : ${metals}">
+                            <input class="form-check-input" type="radio" name="${metal}" id="radioDefault2" th:field="*{finalMetal}" th:value="${metal}">
+                            <label class="form-check-label" for="radioDefault2" th:text ="${metal}"></label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="d-grid gap-3">
+                    <td>Stone</td>
+                    <td>
+                        <div class="form-check" th:each="stone : ${stones}">
+                            <input class="form-check-input" type="radio" name="${stone}" id="radioDefault3" th:field="*{finalStone}" th:value= "${stone}">
+                            <label class="form-check-label" for="radioDefault3" th:text="${stone}"></label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+        <input type="submit" value="Buy Piece of Jewelry" />
+
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+</body>
+</html>

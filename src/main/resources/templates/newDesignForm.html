@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>New Design Form</title>
 </head>
 <body>
-<h1>New Design Form</h1>
 
-<form th:action="@{/design/new}" method="post" th:object="${formDesign}">
+<div th:replace="~{fragments/general :: navbar}"></div>
 
-    <table>
-        <tr>
-            <td>Naam</td>
-            <td><input type="text" th:field="*{naam}"></td>
-        </tr>
-        <tr>
-            <td>Beschrijving</td>
-            <td><input type="text" th:field="*{beschrijving}"></td>
-        </tr>
-    </table>
+<div class="container">
+    <h1>New Design Form</h1>
+    <form th:action="@{/design/new}" method="post" th:object="${formDesign}">
 
-    <input type="submit" value="Save Design" />
+        <table>
+            <tr>
+                <td>Naam</td>
+                <td><input type="text" th:field="*{naam}"></td>
+            </tr>
+            <tr>
+                <td>Beschrijving</td>
+                <td><input type="text" th:field="*{beschrijving}"></td>
+            </tr>
+            <tr>
+                <td>Designer</td>
+                <td>
+                    <select th:field="*{designers}" multiple>
+                        <option th:each ="designer : ${allDesigners}"
+                                th:text ="${designer.name}"
+                                th:value="${designer.designerId}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+        </table>
 
-</form>
+        <input type="submit" value="Save Design" />
+
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
 </body>
 </html>
