@@ -2,6 +2,7 @@ package nl.miwnn.ch16.joost.goudsmiddemo.model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,9 @@ public class Design {
 
     private String naam;
     private String beschrijving;
+
+    @OneToMany(mappedBy = "design", cascade = CascadeType.ALL)
+    private Set<Image> imageUrls;
 
     @ManyToMany
     private Set<Designer> designers;
@@ -72,5 +76,13 @@ public class Design {
 
     public void setPiecesOfJewelry(Set<PieceOfJewelry> piecesOfJewelry) {
         PiecesOfJewelry = piecesOfJewelry;
+    }
+
+    public Set<Image> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(Set<Image> imageUrls) {
+        this.imageUrls = imageUrls;
     }
 }

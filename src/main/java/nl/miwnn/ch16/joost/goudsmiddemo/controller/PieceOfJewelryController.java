@@ -3,6 +3,7 @@ package nl.miwnn.ch16.joost.goudsmiddemo.controller;
 import nl.miwnn.ch16.joost.goudsmiddemo.model.Design;
 import nl.miwnn.ch16.joost.goudsmiddemo.model.PieceOfJewelry;
 import nl.miwnn.ch16.joost.goudsmiddemo.repositories.DesignRepository;
+import nl.miwnn.ch16.joost.goudsmiddemo.repositories.ImageRepository;
 import nl.miwnn.ch16.joost.goudsmiddemo.repositories.PieceOfJewelryRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +22,12 @@ import java.util.Optional;
 public class PieceOfJewelryController {
     private final DesignRepository designRepository;
     private final PieceOfJewelryRepository pieceOfJewelryRepository;
+    private final ImageRepository imageRepository;
 
-    public PieceOfJewelryController(DesignRepository designRepository, PieceOfJewelryRepository pieceOfJewelryRepository) {
+    public PieceOfJewelryController(DesignRepository designRepository, PieceOfJewelryRepository pieceOfJewelryRepository, ImageRepository imageRepository) {
         this.designRepository = designRepository;
         this.pieceOfJewelryRepository = pieceOfJewelryRepository;
+        this.imageRepository = imageRepository;
     }
 
     @GetMapping("/new/{designId}")
